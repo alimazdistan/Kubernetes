@@ -17,13 +17,20 @@ spec:
         image: mysql:8.0
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "rootpassword"
-        - name: MYSQL_DATABASE
-          value: "testdb"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD
         - name: MYSQL_USER
-          value: "testuser"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_USER
         - name: MYSQL_PASSWORD
-          value: "testpassword"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_PASSWORD
         ports:
         - containerPort: 3306
         volumeMounts:
